@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, setUser } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 
 const Login = () => {
     const [input, setInput] = useState({
@@ -18,6 +19,7 @@ const Login = () => {
         password: "",
         role: "",
     });
+    const [showPassword, setShowPassword] = useState(false);
     const { loading,user } = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -70,7 +72,7 @@ const Login = () => {
                         />
                     </div>
 
-                    <div className='my-2'>
+                    {/* <div className='my-2'>
                         <Label>Password</Label>
                         <Input
                             type="password"
@@ -79,6 +81,24 @@ const Login = () => {
                             onChange={changeEventHandler}
                             placeholder="user@gmail.com"
                         />
+                    </div> */}
+                    <div className='my-2 relative'>
+                        <Label>Password</Label>
+                        <Input
+                            type={showPassword ? "text" : "password"}
+                            value={input.password}
+                            name="password"
+                            onChange={changeEventHandler}
+                            placeholder="Enter your password"
+                            className="pr-10"
+                        />
+
+                        <div
+                            className="absolute right-3 top-9 cursor-pointer text-gray-500"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </div>
                     </div>
                     <div className='flex items-center justify-between'>
                         <RadioGroup className="flex items-center gap-4 my-5">
